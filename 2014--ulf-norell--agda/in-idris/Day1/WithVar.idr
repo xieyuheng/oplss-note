@@ -16,7 +16,7 @@ data Member : (x : t) -> List t -> Type where
 
 data Exp : (ctx : Context) -> ExpType -> Type where
   VarExp
-    : {t : ExpType} -> Member t ctx -> Exp ctx t
+    : Member t ctx -> Exp ctx t
   LitExp
     : (n : Nat) -> Exp ctx NatType
   TrueExp
@@ -30,8 +30,7 @@ data Exp : (ctx : Context) -> ExpType -> Type where
     : (a, b : Exp ctx NatType) ->
       Exp ctx NatType
   IfExp
-    : {t : ExpType} ->
-      (q : Exp ctx BoolType) ->
+    : (q : Exp ctx BoolType) ->
       (a, e : Exp ctx t) -> Exp ctx t
 
 Value : ExpType -> Type
@@ -53,7 +52,7 @@ loopUpMember (ConsAll h hs) (SuccMember prev) =
 Env : Context -> Type
 Env ctx = All Value ctx
 
-eval : {t : ExpType} -> (env : Env ctx) -> Exp ctx t -> Value t
+eval : (env : Env ctx) -> Exp ctx t -> Value t
 eval env (VarExp member_h) = loopUpMember env member_h
 eval env (LitExp n) = n
 eval env TrueExp = False
