@@ -14,3 +14,15 @@ public export
 data Any : (p : t -> Type) -> List t -> Type where
   ZeroAny : (p x) -> Any p (x :: xs)
   SuccAny : Any p xs -> Any p (x :: xs)
+
+export
+assert : Bool -> IO ()
+assert b =
+  if b
+  then putStr "."
+  else putStr "X"
+
+export
+test : IO ()
+test = do
+  assert (1 == 1)

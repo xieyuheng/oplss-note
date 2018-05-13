@@ -1,6 +1,8 @@
 module WithVar
 
--- todo
+import Preface
+
+-- todo --
 -- - give some examples for each relation.
 --   require more the reasoned schemer
 
@@ -10,10 +12,6 @@ data ExpType : Type where
 
 Context : Type
 Context = List ExpType
-
-data Member : (x : t) -> List t -> Type where
-  ZeroMember : Member x (x :: xs)
-  SuccMember : Member x xs -> Member x (p :: xs)
 
 data Exp : (ctx : Context) -> ExpType -> Type where
   VarExp
@@ -38,13 +36,9 @@ Value : ExpType -> Type
 Value NatType = Nat
 Value BoolType = Bool
 
-data All : (p : t -> Type) -> List t -> Type where
-  NullAll : All p []
-  ConsAll : (p x) -> All p xs -> All p (x :: xs)
-
-||| when writing this,
-|||   view `All p xs` as a `List t`,
-|||   and `Member x xs` as `Nat`.
+-- when writing this,
+--   view `All p xs` as a `List t`,
+--   and `Member x xs` as `Nat`.
 loopUpMember : All p xs -> Member x xs -> (p x)
 loopUpMember (ConsAll h hs) ZeroMember = h
 loopUpMember (ConsAll h hs) (SuccMember prev) =
@@ -65,6 +59,11 @@ eval env (IfExp q a e) =
   then eval env a
   else eval env e
 
+-- generalize `Member` by `Any` --
+
+MemberByAny : (x : t) -> List t -> Type
+MemberByAny x xs = Any ((=) x) xs
+
 -- test --
 
 CTX : Context
@@ -82,13 +81,7 @@ EXP = IfExp
 VALUE : Nat
 VALUE = eval ENV EXP
 
--- VALUE == 9
-
--- generalize `Member` by `Any`
-
-data Any : (p : t -> Type) -> List t -> Type where
-  ZeroAny : (p x) -> Any p (x :: xs)
-  SuccAny : Any p xs -> Any p (x :: xs)
-
-MemberByAny : (x : t) -> List t -> Type
-MemberByAny x xs = Any ((=) x) xs
+export
+test : IO ()
+test = do
+  assert (VALUE == 9)
