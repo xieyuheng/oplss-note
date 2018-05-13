@@ -15,7 +15,7 @@ Context = List (Name, TermType)
 data Term : (ctx : Context) -> TermType -> Type where
   VarTerm
     : (x : Name) ->
-      Member (x, a) ctx ->
+      (i : Member (x, a) ctx) ->
       Term ctx a
   LitTerm
     : Nat ->
@@ -30,3 +30,8 @@ data Term : (ctx : Context) -> TermType -> Type where
     : (x : Name) -> (a : TermType) ->
       Term ((x, a) :: ctx) b ->
       Term ctx (ArrowType a b)
+
+TypeError : Type
+TypeError = String
+
+-- about Either monad

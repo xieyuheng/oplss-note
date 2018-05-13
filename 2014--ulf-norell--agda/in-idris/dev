@@ -1,0 +1,25 @@
+#! /bin/bash
+
+build ()
+{
+    time idris --build oplss--2014--ulf-norell.ipkg
+}
+
+clean ()
+{
+    idris --clean oplss--2014--ulf-norell.ipkg
+}
+
+test () {
+    idris --testpkg oplss--2014--ulf-norell.ipkg
+}
+
+default () {
+    build
+}
+
+if [ $# -eq 0 ]; then
+    default
+else
+    $1
+fi
