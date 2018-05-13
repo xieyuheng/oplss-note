@@ -2,6 +2,7 @@ module WithVar
 
 -- todo
 -- - give some examples for each relation.
+--   require more the reasoned schemer
 
 data ExpType : Type where
   NatType  : ExpType
@@ -12,7 +13,7 @@ Context = List ExpType
 
 data Member : (x : t) -> List t -> Type where
   ZeroMember : Member x (x :: xs)
-  SuccMember : Member x xs -> Member x (y :: xs)
+  SuccMember : Member x xs -> Member x (p :: xs)
 
 data Exp : (ctx : Context) -> ExpType -> Type where
   VarExp
@@ -41,9 +42,9 @@ data All : (p : t -> Type) -> List t -> Type where
   NullAll : All p []
   ConsAll : (p x) -> All p xs -> All p (x :: xs)
 
-||| when writing this
-|||   view `All p xs` as a `List t`
-|||   and `Member x xs` as `Nat`
+||| when writing this,
+|||   view `All p xs` as a `List t`,
+|||   and `Member x xs` as `Nat`.
 loopUpMember : All p xs -> Member x xs -> (p x)
 loopUpMember (ConsAll h hs) ZeroMember = h
 loopUpMember (ConsAll h hs) (SuccMember prev) =
