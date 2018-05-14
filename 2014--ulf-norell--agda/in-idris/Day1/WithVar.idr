@@ -1,4 +1,4 @@
-module WithVar
+module Day1.WithVar
 
 import Preface
 
@@ -83,5 +83,4 @@ VALUE = eval ENV EXP
 
 export
 test : IO ()
-test = do
-  assert (VALUE == 9)
+test = assert (VALUE == 9)

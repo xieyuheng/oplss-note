@@ -9,6 +9,5 @@ modules = Main
 main = Main
 executable = main
 
-tests = Main.test
-      , Preface.test
+tests = Preface.test
       , Day1.WithVar.test
