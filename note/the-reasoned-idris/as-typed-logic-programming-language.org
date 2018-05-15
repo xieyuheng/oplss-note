@@ -1,3 +1,0 @@
-#+title: as typed logic programming language
-
-dependent type system as typed logic programming language

@@ -1,0 +1,20 @@
+#+title: as logic programming language
+
+* [note]
+
+  - dependent type system as logic programming language
+
+* comparing
+
+  - a [typical] dependent type syetem
+    in lack of reification and interfaces
+
+  - a [typical] logic programming
+    in lack of the informations
+    about the names of inference rules
+
+* typed
+
+* reversed horn clause
+
+* with named rule
