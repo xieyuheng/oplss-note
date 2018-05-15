@@ -1,0 +1,27 @@
+* schoolofhaskell
+
+  - link :
+    https://www.schoolofhaskell.com/school/starting-with-haskell/basics-of-haskell/10_Error_Handling
+
+  - This trick of returning a different type
+    in order to turn a non-functional computation
+    into a pure function
+    is used extensively in Haskell
+    and finds its full expression in monads.
+
+  - "Computation" or "notion of computation"
+    often describes what we want to do in terms that
+    may or may not have immediate pure function implementation.
+
+    Transforming computations into functions
+    is what functional programming is all about.
+
+  - x -
+    the use of `Maybe` and `Eihter`
+    is to make non-total functions total.
+
+    those are tricks we can do on return type.
+
+    we can also do tricks on input types,
+    by adding more information in type
+    we can make a function not composable to not valid ante.
