@@ -1,0 +1,12 @@
+* logical harmony
+
+  - x -
+    我们之前把 judgment 理解为 type-constructor
+    inference rule 理解为 data-constructor
+    这正确吗 ?
+
+  ------
+
+  - x -
+    在這種理解方式下
+    如何理解 logical harmony ?

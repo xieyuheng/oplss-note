@@ -1,4 +1,4 @@
-#+title: agda
+#+title: programming in agda
 
 - by ulf norell
 

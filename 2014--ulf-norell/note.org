@@ -25,3 +25,9 @@
     we can also do tricks on input types,
     by adding more information in type
     we can make a function not composable to not valid ante.
+
+  - k -
+    I guess this is what is called "intrinsic proofs"
+
+  - x -
+    maybe

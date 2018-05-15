@@ -1,0 +1,3 @@
+* proof search
+
+*** the natural of the proof space

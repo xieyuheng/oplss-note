@@ -55,6 +55,9 @@ TC t = Either TypeError t
 typeError : TypeError -> TC t
 typeError err = Left err
 
+-- not only informations in the type are forgotten
+-- in the case of `VarTerm`
+--   the informations in the data is also forgotten
 forgetType : (Term ctx a) -> Expr
 forgetType (VarTerm x i) = VarExpr x
 forgetType (LitTerm k) = LitExpr k

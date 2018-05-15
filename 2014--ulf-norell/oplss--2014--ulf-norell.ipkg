@@ -1,4 +1,4 @@
-package oplss--2014--ulf-norell
+package 2014--ulf-norell
 
 modules = Main
         , Preface
