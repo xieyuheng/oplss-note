@@ -1,3 +1,12 @@
+||| - dependent type system as logic programming language
+|||
+|||   - a [typical] dependent type syetem
+|||     in lack of reification and interfaces
+|||
+|||   - a [typical] logic programming
+|||     in lack of the informations
+|||     about the names of inference rules
+
 -- append([], SUCC, SUCC).
 -- append([CAR|CDR], SUCC, [CAR|RESULT_CDR]):-
 --   append(CDR, SUCC, RESULT_CDR).
