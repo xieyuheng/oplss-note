@@ -31,3 +31,7 @@
 
   - x -
     maybe
+
+* different types of error-handling
+
+  - how about OTP ?
