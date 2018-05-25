@@ -1,0 +1,9 @@
+#+title: todo
+
+* [todo-stack]
+
+  - yes no of agda in idris
+
+  - agda lectures in idris
+
+  - red black tree in idris

@@ -12,18 +12,18 @@
 
 *** types are first class
 
-    #+begin_src jojo
-    (+fun StringOrNat
-      : (-> :isStr : Bool
-         -- Type)
-      (match :isStr
-        true String
-        false Nat))
+    #+begin_src cicada
+    (+fun string-or-nat
+      : (-> is-str : bool-u
+         -- type-tt)
+      (case is-str
+        (true-t string-t)
+        (false-t nat-u)))
     #+end_src
 
 *** types of one thing can influence types of another
 
-    #+begin_src jojo
+    #+begin_src cicada
     (+fun lengthOrDouble
       : (-> :x : :isStr StringOrNat
             :isStr : Bool
@@ -44,7 +44,7 @@
 
 *** >< printf
 
-    #+begin_src jojo
+    #+begin_src cicada
     (+type Format : Type
       Number : (-> .fmt Format -- Format)
       Str : (-> .fmt Format -- Format)
