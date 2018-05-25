@@ -46,12 +46,12 @@ zip : Vect n a -> Vect n b -> Vect n (a, b)
 zip [] [] = []
 zip (x :: xs) (y :: ys) = (x, y) :: zip xs ys
 
-empties : Vect m (Vect 0 t)
-empties {m = Z} = []
-empties {m = (S k)} = [] :: empties
+emptyMatrix : Vect m (Vect 0 t)
+emptyMatrix {m = Z} = []
+emptyMatrix {m = (S k)} = [] :: emptyMatrix
 
 -- we must be able to pull data from type
---   to be able to write `empties`
+--   to be able to write `emptyMatrix`
 
 -- thus, runtime must contain data in type in almost all cases,
 --   which makes the language dynamicly typed at runtime
@@ -63,7 +63,7 @@ transposeMatrixHelper (x :: xs) (y :: ys)
   = (x :: y) :: transposeMatrixHelper xs ys
 
 transposeMatrix : Vect n (Vect m t) -> Vect m (Vect n t)
-transposeMatrix [] = empties
+transposeMatrix [] = emptyMatrix
 transposeMatrix (x :: xs)
   = let xs_trans = transposeMatrix xs in
       transposeMatrixHelper x xs_trans
