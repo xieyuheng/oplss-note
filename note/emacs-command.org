@@ -1,0 +1,10 @@
+#+title: emacs-command for idris-mode
+
+* basic
+
+  | key     | place                    | function            |
+  |---------+--------------------------+---------------------|
+  | C-c C-s | function name before `:` | idris-add-clause    |
+  | C-c C-c | variable in pattern      | idris-case-dwim     |
+  | C-c C-a | hole                     | idris-proof-search  |
+  | C-c C-t | hole, value              | idris-type-at-point |
