@@ -2,6 +2,8 @@ module Day2.Lambda
 
 import Preface
 
+%default total
+
 data TermType : Type where
   NatType
     : TermType
@@ -78,33 +80,24 @@ checkedLam
 checkedLam (OkChecked b v) =
   OkChecked (ArrowType _ b) (LambdaTerm _ _ v)
 
--- lookupVar
---   : (ctx : Context) -> (x : Name) ->
---     TC (A : TermType ** Member (x, A) ctx)
--- lookupVar [] x = typeError ("Variable out of scope:" ++ x)
--- lookupVar ((y, a) :: xs) x with (x == y)
---   -- | True = Right (a ** ?ZeroMember)
---   -- | False = map (SuccMember) (lookupVar xs x)
---   | True = Right ?on_true
---   | False = map ?fun (lookupVar xs x)
+succMemberInDPair
+  : (A : TermType ** Member (x, A) xs) ->
+    (A : TermType ** Member (x, A) ((y, a) :: xs))
+succMemberInDPair (x ** pf) = (x ** (SuccMember pf))
 
 lookupVar
   : (ctx : Context) -> (x : Name) ->
-    TC (DPair TermType (\A => Member (x, A) ctx))
+    TC (A : TermType ** Member (x, A) ctx)
 lookupVar [] x = typeError ("Variable out of scope:" ++ x)
-lookupVar ((y, a) :: xs) x with (x == y)
-  | True = Right (MkDPair a ?ZeroMember)
-  | False = map ?fun (lookupVar xs x)
-
--- checkedVar
---   : (A : TermType ** Member (x, A) ctx) ->
---     Checked ctx (VarExpr x)
--- checkedVar (a ** i) = OkChecked a (VarTerm _ i)
+lookupVar ((y, a) :: xs) x =
+  case (decEq x y) of
+    Yes Refl => Right (a ** ZeroMember)
+    No contra => map succMemberInDPair (lookupVar xs x)
 
 checkedVar
-  : DPair TermType (\A => Member (x, A) ctx) ->
+  : (A : TermType ** Member (x, A) ctx) ->
     Checked ctx (VarExpr x)
-checkedVar (MkDPair a i) = OkChecked a (VarTerm _ i)
+checkedVar (a ** i) = OkChecked a (VarTerm _ i)
 
 typeCheck : (ctx : Context) -> (e : Expr) -> TC (Checked ctx e)
 typeCheck ctx (VarExpr x) =
