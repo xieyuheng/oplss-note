@@ -8,13 +8,10 @@ lengthOrDouble : (isStr : Bool) -> (StringOrNat isStr) -> Nat
 lengthOrDouble False x = x + x
 lengthOrDouble True x = length x
 
+public export
 data Vect : Nat -> Type -> Type where
   Nil  : Vect Z a
   (::) : a -> Vect k a -> Vect (S k) a
-
-(+) : Nat -> Nat -> Nat
-Z + j = j
-(S k) + j = S (k + j)
 
 %name Vect xs, ys, zs
 
@@ -42,6 +39,7 @@ append (x :: xs) ys = x :: append xs ys
 --   type of input argument should not be constrained by
 --     the type of a return value
 
+export
 zip : Vect n a -> Vect n b -> Vect n (a, b)
 zip [] [] = []
 zip (x :: xs) (y :: ys) = (x, y) :: zip xs ys
