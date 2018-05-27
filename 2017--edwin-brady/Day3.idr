@@ -19,11 +19,11 @@ echo = getLine >>= putStrLn
 namespace NotTotol
 
   loopy : IO ()
-  loopy
-    = do putStr "what is your name ? "
-         name <- getLine
-         putStrLn ("hi " ++ name)
-         loopy
+  loopy = do
+    putStr "what is your name ? "
+    name <- getLine
+    putStrLn ("hi " ++ name)
+    loopy
 
 namespace Totol
 
@@ -42,11 +42,11 @@ namespace Totol
   (>>=) = Do
 
   loopy : InfIO
-  loopy
-    = do PutStr "what is your name ? "
-         name <- GetStr
-         PutStr ("hi " ++ name ++ "\n")
-         loopy
+  loopy = do
+    PutStr "what is your name ? "
+    name <- GetStr
+    PutStr ("hi " ++ name ++ "\n")
+    loopy
 
   runCommand : Command a -> IO a
   runCommand (PutStr x) = putStr x
@@ -54,9 +54,9 @@ namespace Totol
 
   partial
   run : InfIO -> IO ()
-  run (Do cmd f)
-    = do res <- runCommand cmd
-         run (f res)
+  run (Do cmd f) = do
+    res <- runCommand cmd
+    run (f res)
 
   data Fuel = Dry | More (Lazy Fuel)
 
@@ -64,11 +64,11 @@ namespace Totol
   tank Z = Dry
   tank (S k) = More (tank k)
 
-  run_total : Fuel -> InfIO -> IO ()
-  run_total Dry y = putStrLn "out of fuel!"
-  run_total (More x) (Do cmd f)
-    = do res <- runCommand cmd
-         run_total x (f res)
+  runWithFuel : Fuel -> InfIO -> IO ()
+  runWithFuel Dry y = putStrLn "out of fuel!"
+  runWithFuel (More x) (Do cmd f) = do
+    res <- runCommand cmd
+    runWithFuel x (f res)
 
   partial
   forever : Fuel
