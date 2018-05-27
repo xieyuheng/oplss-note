@@ -1,0 +1,7 @@
+#+title: explicit runtime system
+
+* ><
+
+  - the interface between the pure part of the language
+    and the runtime system
+    should be explicit
