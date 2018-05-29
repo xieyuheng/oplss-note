@@ -1,4 +1,4 @@
-module Day1.WithoutVar
+module Day1WithoutVar
 
 data ExpType : Type where
   NatType  : ExpType

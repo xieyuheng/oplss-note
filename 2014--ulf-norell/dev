@@ -2,16 +2,16 @@
 
 build ()
 {
-    time idris --build oplss--2014--ulf-norell.ipkg
+    time idris --build oplss-2014-ulf-norell.ipkg
 }
 
 clean ()
 {
-    idris --clean oplss--2014--ulf-norell.ipkg
+    idris --clean oplss-2014-ulf-norell.ipkg
 }
 
 test () {
-    idris --testpkg oplss--2014--ulf-norell.ipkg
+    idris --testpkg oplss-2014-ulf-norell.ipkg
 }
 
 default () {

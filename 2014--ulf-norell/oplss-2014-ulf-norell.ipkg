@@ -1,0 +1,13 @@
+package oplss-2014-ulf-norell
+
+modules = Main
+        , Preface
+        , Day1WithoutVar
+        , Day1WithVar
+        , Day2Lambda
+
+main = Main
+executable = main
+
+tests = Preface.test
+      , Day1WithVar.test

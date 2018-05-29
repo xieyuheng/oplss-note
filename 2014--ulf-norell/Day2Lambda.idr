@@ -1,4 +1,4 @@
-module Day2.Lambda
+module Day2Lambda
 
 import Preface
 

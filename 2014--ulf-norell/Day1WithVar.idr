@@ -1,4 +1,4 @@
-module Day1.WithVar
+module Day1WithVar
 
 import Preface
 
