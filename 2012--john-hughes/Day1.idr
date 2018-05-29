@@ -19,15 +19,21 @@ Functor Tree where
   map f (Leaf a) = Leaf (f a)
   map f (Branch l r) = Branch (map f l) (map f r)
 
+-- zipTree : Tree a -> Tree b -> Maybe (Tree (Pair a b))
+-- zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
+-- zipTree (Branch l r) (Branch l' r') = do
+--   l'' <- zipTree l l'
+--   r'' <- zipTree r r'
+--   pure (Branch l'' r'')
+-- zipTree _ _ = Nothing
+
 zipTree : Tree a -> Tree b -> Maybe (Tree (Pair a b))
 zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
-zipTree (Branch l r) (Branch l' r') = do
-  l'' <- zipTree l l'
-  r'' <- zipTree r r'
-  pure (Branch l'' r'')
+zipTree (Branch l r) (Branch l' r') =
+  liftA2 Branch (zipTree l l') (zipTree r r')
 zipTree _ _ = Nothing
 
--- test
+-- test --
 -- zipTree TREE TREE
 
 -- data State : (s : Type) -> (a : Type) -> Type where
@@ -77,17 +83,30 @@ numberWithInt (Branch l r) s =
 tick : State Int Int
 tick = MkState (\s => (s, s+1))
 
+-- number : Tree a -> State Int (Tree Int)
+-- number (Leaf _) = do
+--   s <- tick
+--   pure (Leaf s)
+-- number (Branch l r) = do
+--   l' <- number l
+--   r' <- number r
+--   pure (Branch l' r')
+
 number : Tree a -> State Int (Tree Int)
-number (Leaf _) = do
-  s <- tick
-  pure (Leaf s)
-number (Branch l r) = do
-  l' <- number l
-  r' <- number r
-  pure (Branch l' r')
+number (Leaf _) = liftA Leaf tick
+number (Branch l r) = liftA2 Branch (number l) (number r)
 
 NUMBERED_TREE : Tree Int
 NUMBERED_TREE =
   let MkState g = number TREE
       (tree, state) = g 0
   in tree
+
+-- generic functions for Monad --
+-- liftA : Applicative f => (a -> b) -> f a -> f b
+-- liftA2 : Applicative f => (a -> b -> c) -> f a -> f b -> f c
+
+-- the Monad laws --
+-- (1)    pure x >>= f  ==  f x
+-- (2)      m >>= pure  ==  m
+-- (3) (m >>= f) >>= g  ==  m >>= (\x => f x >>= g)
