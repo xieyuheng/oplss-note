@@ -1,3 +1,1 @@
-module Day1 
-
-
+module Day1

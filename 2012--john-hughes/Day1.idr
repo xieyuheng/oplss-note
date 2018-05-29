@@ -27,8 +27,18 @@ zipTree (Branch l r) (Branch l' r') = do
   pure (Branch l'' r'')
 zipTree _ _ = Nothing
 
-data State : (s : Type) -> (a : Type) -> Type where
-  MkState : (g : (s -> (a, s))) -> State s a
+-- test
+-- zipTree TREE TREE
+
+-- data State : (s : Type) -> (a : Type) -> Type where
+--   MkState : (g : (s -> (a, s))) -> State s a
+
+record State (s : Type) (a : Type) where
+  constructor MkState
+  g : (s -> (a, s))
+
+-- to use record
+--   we do not even need to change the following code
 
 Functor (State s) where
   -- map : (f : a -> b) -> State s a -> State s b
@@ -75,3 +85,9 @@ number (Branch l r) = do
   l' <- number l
   r' <- number r
   pure (Branch l' r')
+
+NUMBERED_TREE : Tree Int
+NUMBERED_TREE =
+  let MkState g = number TREE
+      (tree, state) = g 0
+  in tree
