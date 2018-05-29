@@ -19,8 +19,7 @@ Functor Tree where
   map f (Leaf a) = Leaf (f a)
   map f (Branch l r) = Branch (map f l) (map f r)
 
--- Maybe Monad --
-zipTree: Tree a -> Tree b -> Maybe (Tree (Pair a b))
+zipTree : Tree a -> Tree b -> Maybe (Tree (Pair a b))
 zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
 zipTree (Branch l r) (Branch l' r') = do
   l'' <- zipTree l l'
@@ -58,14 +57,12 @@ Monad (State s) where
           MkState f = m a
       in f s')
 
-namespace WithoutStateMonad
-
-  number : Tree a -> (s : Int) -> (Tree Int, Int)
-  number (Leaf _) s = (Leaf s, s+1)
-  number (Branch l r) s =
-    let (l', s') = number l s
-        (r', s'') = number r s'
-    in (Branch l' r', s'')
+numberWithInt : Tree a -> (s : Int) -> (Tree Int, Int)
+numberWithInt (Leaf _) s = (Leaf s, s+1)
+numberWithInt (Branch l r) s =
+  let (l', s') = numberWithInt l s
+      (r', s'') = numberWithInt r s'
+  in (Branch l' r', s'')
 
 tick : State Int Int
 tick = MkState (\s => (s, s+1))
