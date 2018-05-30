@@ -1,17 +1,19 @@
 #! /bin/bash
 
+IPKG=oplss-2014-ulf-norell.ipkg
+
 build ()
 {
-    time idris --build oplss-2014-ulf-norell.ipkg
+    time idris --build $IPKG
 }
 
 clean ()
 {
-    idris --clean oplss-2014-ulf-norell.ipkg
+    idris --clean $IPKG
 }
 
 test () {
-    idris --testpkg oplss-2014-ulf-norell.ipkg
+    idris --testpkg $IPKG
 }
 
 default () {
