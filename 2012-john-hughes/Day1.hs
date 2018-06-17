@@ -12,17 +12,18 @@ treeMap :: (a -> b) -> Tree a -> Tree b
 treeMap f (Leaf a) = Leaf (f a)
 treeMap f (Branch l r) = Branch (treeMap f l) (treeMap f r)
 
--- class Functor f where
---   fmap :: (a -> b) -> f a -> f b
-
 instance Functor Tree where
   fmap f (Leaf a) = Leaf (f a)
   fmap f (Branch l r) = Branch (fmap f l) (fmap f r)
 
--- Maybe Monad --
--- zipTree :: Tree a -> Tree b -> Maybe (Tree (a, b))
--- zipTree (Leaf a) (Leaf b) = Just (Leaf (a, b))
+zipTree :: Tree a -> Tree b -> Maybe (Tree (a, b))
+zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
+zipTree (Branch l r) (Branch l' r') =
+  liftA2 Branch (zipTree l l') (zipTree r r')
+zipTree _ _ = Nothing
 
--- State Monad --
--- number :: Tree a -> Tree Int
--- number (Leaf a) s = (Leaf s) (s+1)
+-- data State a = ??? -- to use record type
+
+-- number :: Tree a -> State Int (Tree Int)
+-- number (Leaf _) = liftM Leaf tick
+-- number (Branch l r) = liftM2 Branch (number l) (number r)

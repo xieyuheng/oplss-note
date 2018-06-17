@@ -8,8 +8,7 @@ data TermType : Type where
   NatType
     : TermType
   ArrowType
-    : (succ, ante : TermType) ->
-      TermType
+    : (succ, ante : TermType) -> TermType
 
 Name : Type
 Name = String

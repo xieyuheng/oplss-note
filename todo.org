@@ -2,8 +2,30 @@
 
 * [todo-stack]
 
-  - yes no of agda in idris
+  - use haskell to do examples about type-class
 
-  - agda lectures in idris
+* no language to use
 
-  - red black tree in idris
+*** sum type and type class
+
+    - ocaml module system can be used as type class
+      by ocaml do not have good syntax for moand
+
+    - haskell tool chain use up too much disk
+
+      - we can avoid using the tool chain [for now]
+
+*** dependent type
+
+    - coq uses tactics too much
+
+    - idris is buggy about interface inheritance
+
+      - how to implement product of categories ?
+
+    - agda -- no type class
+      use module system
+
+*** function application syntax
+
+    - (-> A) is different from A
