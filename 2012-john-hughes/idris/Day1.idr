@@ -19,13 +19,13 @@ Functor Tree where
   map f (Leaf a) = Leaf (f a)
   map f (Branch l r) = Branch (map f l) (map f r)
 
--- zipTree : Tree a -> Tree b -> Maybe (Tree (Pair a b))
--- zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
--- zipTree (Branch l r) (Branch l' r') = do
---   l'' <- zipTree l l'
---   r'' <- zipTree r r'
---   pure (Branch l'' r'')
--- zipTree _ _ = Nothing
+zipTree : Tree a -> Tree b -> Maybe (Tree (Pair a b))
+zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
+zipTree (Branch l r) (Branch l' r') = do
+  l'' <- zipTree l l'
+  r'' <- zipTree r r'
+  pure (Branch l'' r'')
+zipTree _ _ = Nothing
 
 zipTree : Tree a -> Tree b -> Maybe (Tree (Pair a b))
 zipTree (Leaf x) (Leaf y) = Just (Leaf (x, y))
